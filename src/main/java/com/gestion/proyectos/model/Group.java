@@ -42,13 +42,12 @@ private static final long serialVersionUID = 1L;
 		
 	}
 
-	public Group(Long id, String nombre, String descripcion, Date fecha, List<Folder> folders) {
+	public Group(Long id, String nombre, String descripcion, Date fecha) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.fecha = fecha;
-		this.folders = folders;
 	}
 
 	public Long getId() {
