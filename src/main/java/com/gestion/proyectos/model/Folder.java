@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -26,12 +27,12 @@ public class Folder implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Long idPadre;
+	private Long padre;
 	
 	
 	@JsonBackReference
-	@ManyToOne(fetch = FetchType.LAZY)    
-    private Group group; 
+	@ManyToOne(fetch = FetchType.LAZY)
+    private Group group;
 	
 	@JsonManagedReference
 	@OneToMany(
@@ -52,7 +53,7 @@ public class Folder implements Serializable {
 		
 	public Folder(Long id, Long idPadre, String nombre, String descripcion, Date fecha) {	
 		this.id = id;
-		this.idPadre = idPadre;
+		this.padre = idPadre;		
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.fecha = fecha;
@@ -66,12 +67,12 @@ public class Folder implements Serializable {
 		this.id = id;
 	}
 
-	public Long getIdPadre() {
-		return idPadre;
+	public Long getPadre() {
+		return padre;
 	}
 
-	public void setIdPadre(Long idPadre) {
-		this.idPadre = idPadre;
+	public void setPadre(Long idPadre) {
+		this.padre = idPadre;
 	}
 
 	public Group getGroup() {

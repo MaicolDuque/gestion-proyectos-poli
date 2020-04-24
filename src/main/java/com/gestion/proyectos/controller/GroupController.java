@@ -53,7 +53,6 @@ public class GroupController {
 	@DeleteMapping("/{id}")
 	public Group deleteGroup(@PathVariable Long id) {
 		return groupService.deleteGroup(id);
-	}
-	
+	}	
 	
 }
