@@ -35,17 +35,17 @@ public class FolderController {
 	public Folder getFolderById(@PathVariable Long id){
 		return folderService.getFolderById(id);
 	}
-	
+
 	@PostMapping
 	public Folder addNewFolder(@RequestBody Folder folder) {
 		return folderService.addFolder(folder);
 	}
-	
+
 	@PutMapping("/{id}")
 	public Folder updateFolder(@PathVariable Long id, @RequestBody Folder folder) {
 		return folderService.updateFolder(folder, id);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public Folder deleteFolder(@PathVariable Long id) {
 		return folderService.deleteFolder(id);

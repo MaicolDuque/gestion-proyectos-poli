@@ -56,8 +56,8 @@ public class Folder implements Serializable {
 	
 	}
 		
-	public Folder(Long idPadre, String nombre, String descripcion, Date fecha, Group group) {			
-		this.padre = idPadre;		
+	public Folder(Long idPadre, String nombre, String descripcion, Date fecha, Group group) {
+		this.padre = idPadre;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.fecha = fecha;
@@ -79,17 +79,17 @@ public class Folder implements Serializable {
 	public void setPadre(Long idPadre) {
 		this.padre = idPadre;
 	}
-	
+
 	public Long getGroup_id() {
 		return group.getId();
 	}
-	
-	
+
+
 	//@JsonIgnore
 	public Group getGroup() {
 		return group;
 	}
-	
+
 	//@JsonIgnore
 	public void setGroup(Group group) {
 		this.group = group;
@@ -132,6 +132,16 @@ public class Folder implements Serializable {
 		return "Folder [id=" + id + ", padre=" + padre + ", group=" + group + ", files=" + files + ", nombre=" + nombre
 				+ ", descripcion=" + descripcion + ", fecha=" + fecha + "]";
 	}
+	
+	
+	
+
+
+
+	
+	
+	
+	
 	
 	
 	
