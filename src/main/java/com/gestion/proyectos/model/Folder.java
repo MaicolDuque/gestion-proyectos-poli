@@ -16,7 +16,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -31,7 +35,8 @@ public class Folder implements Serializable {
 	
 	
 	@JsonBackReference
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "group_id", nullable = false)
     private Group group;
 	
 	@JsonManagedReference
@@ -51,12 +56,12 @@ public class Folder implements Serializable {
 	
 	}
 		
-	public Folder(Long id, Long idPadre, String nombre, String descripcion, Date fecha) {	
-		this.id = id;
+	public Folder(Long idPadre, String nombre, String descripcion, Date fecha, Group group) {			
 		this.padre = idPadre;		
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.fecha = fecha;
+		this.group = group;
 	}
 
 	public Long getId() {
@@ -74,11 +79,18 @@ public class Folder implements Serializable {
 	public void setPadre(Long idPadre) {
 		this.padre = idPadre;
 	}
-
+	
+	public Long getGroup_id() {
+		return group.getId();
+	}
+	
+	
+	//@JsonIgnore
 	public Group getGroup() {
 		return group;
 	}
-
+	
+	//@JsonIgnore
 	public void setGroup(Group group) {
 		this.group = group;
 	}
@@ -114,17 +126,12 @@ public class Folder implements Serializable {
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	
-	
-	
-	
 
-
-
-	
-	
-	
-	
+	@Override
+	public String toString() {
+		return "Folder [id=" + id + ", padre=" + padre + ", group=" + group + ", files=" + files + ", nombre=" + nombre
+				+ ", descripcion=" + descripcion + ", fecha=" + fecha + "]";
+	}
 	
 	
 	
