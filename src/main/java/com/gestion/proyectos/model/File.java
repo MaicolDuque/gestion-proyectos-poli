@@ -2,6 +2,7 @@ package com.gestion.proyectos.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,11 +40,12 @@ public class File implements Serializable {
 	}
 
 	
-	public File(Long id, String nombre, int idFolder, Date fecha) {
+	public File(String nombre, String filePath,Folder folder) {
 		super();
-		this.id = id;
-		this.nombre = nombre;		
-		this.fecha = fecha;
+		this.filePath = filePath;
+		this.nombre = nombre;
+		this.folder = folder;
+		this.fecha = new Date(Calendar.getInstance().getTime().getTime());
 	}
 
 }

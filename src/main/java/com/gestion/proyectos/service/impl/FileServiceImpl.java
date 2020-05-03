@@ -1,6 +1,7 @@
 package com.gestion.proyectos.service.impl;
 
 import com.gestion.proyectos.service.IFileService;
+import org.mapstruct.ObjectFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 
 @Service
 public class FileServiceImpl implements IFileService {
@@ -21,5 +23,10 @@ public class FileServiceImpl implements IFileService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String createFileName() {
+        return UUID.randomUUID().toString();
     }
 }

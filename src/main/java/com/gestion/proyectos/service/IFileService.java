@@ -6,4 +6,5 @@ import java.nio.file.Path;
 
 public interface IFileService {
     boolean uploadFile(InputStream in, Path path, CopyOption copyOption);
+    String createFileName();
 }

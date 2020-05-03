@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
+import com.gestion.proyectos.acl.exception.MyFileNotFoundException;
+import com.gestion.proyectos.model.File;
 import com.gestion.proyectos.repository.FolderRepository;
 import com.gestion.proyectos.service.IFileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +18,11 @@ import org.springframework.web.bind.annotation.*;
 import com.gestion.proyectos.model.Folder;
 import com.gestion.proyectos.service.IFolderService;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("folder")
 public class FolderController {
-	private final String FILE_BASE_PATH = "./descargas/";
-
 	private final IFolderService folderService;
 	private final FolderRepository folderRepository;
 	private final IFileService fileService;
@@ -60,25 +61,5 @@ public class FolderController {
 	@DeleteMapping("/{id}")
 	public Folder deleteFolder(@PathVariable Long id) {
 		return folderService.deleteFolder(id);
-	}
-
-	@PostMapping("/{id}")
-	public Boolean uploadFileToFolder(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
-		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-		Path path = Paths.get(FILE_BASE_PATH + fileName);
-		Folder folder = folderService.getFolderById(id);
-		boolean uploadState = false;
-
-		if (folder == null ) {
-			System.out.println("Folder no encontrado ERROR");
-			return false;
-		} else {
-			try {
-				uploadState = fileService.uploadFile(file.getInputStream(),path, StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return uploadState;
 	}
 }
