@@ -1,12 +1,11 @@
 package com.gestion.proyectos.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gestion.proyectos.dao.IGroupDao;
+import com.gestion.proyectos.repository.GroupRepository;
 import com.gestion.proyectos.model.Group;
 import com.gestion.proyectos.service.IGroupService;
 
@@ -14,10 +13,10 @@ import com.gestion.proyectos.service.IGroupService;
 @Service
 public class GroupServiceImpl implements IGroupService{
 	
-	IGroupDao groupDao;
+	GroupRepository groupDao;
 	
 	@Autowired
-	public  GroupServiceImpl(IGroupDao groupDao) {
+	public  GroupServiceImpl(GroupRepository groupDao) {
 		this.groupDao = groupDao;
 	}
 	

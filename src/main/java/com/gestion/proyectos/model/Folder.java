@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Data;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -24,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@Data
 @Table(name ="folders")
 public class Folder implements Serializable {
 	
@@ -47,7 +49,6 @@ public class Folder implements Serializable {
 	        )
 	private List<File> files = new ArrayList<>();
 	
-	
 	private String nombre;
 	private String descripcion;	
 	private Date fecha;
@@ -62,69 +63,6 @@ public class Folder implements Serializable {
 		this.descripcion = descripcion;
 		this.fecha = fecha;
 		this.group = group;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Long getPadre() {
-		return padre;
-	}
-
-	public void setPadre(Long idPadre) {
-		this.padre = idPadre;
-	}
-
-	public Long getGroup_id() {
-		return group.getId();
-	}
-
-
-	//@JsonIgnore
-	public Group getGroup() {
-		return group;
-	}
-
-	//@JsonIgnore
-	public void setGroup(Group group) {
-		this.group = group;
-	}
-
-	public List<File> getFiles() {
-		return files;
-	}
-
-	public void setFiles(List<File> files) {
-		this.files = files;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
 	}
 
 	@Override
