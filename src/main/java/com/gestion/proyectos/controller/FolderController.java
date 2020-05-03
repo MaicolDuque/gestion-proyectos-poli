@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("folder")
 public class FolderController {
-	private final String FILE_BASE_PATH = "/descargas/";
+	private final String FILE_BASE_PATH = "./descargas/";
 
 	private final IFolderService folderService;
 	private final FolderRepository folderRepository;

@@ -48,8 +48,7 @@ public class GroupController {
 	public Group updatedGroup(@PathVariable Long id, @RequestBody Group group) {
 		return groupService.updateGroup(group, id);
 	}
-	
-	
+
 	@DeleteMapping("/{id}")
 	public Group deleteGroup(@PathVariable Long id) {
 		return groupService.deleteGroup(id);
