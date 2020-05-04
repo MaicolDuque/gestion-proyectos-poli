@@ -31,12 +31,14 @@ public class FileController {
 
     private final FileStorageService fileStorageService;
     private final IFolderService folderService;
+    private final IFileService fileService;
     private final FileRepository fileRepository;
 
-    public FileController(FileStorageService fileStorageService, IFolderService folderService, FileRepository fileRepository) {
+    public FileController(FileStorageService fileStorageService, IFolderService folderService, FileRepository fileRepository, IFileService fileService) {
         this.fileStorageService = fileStorageService;
         this.folderService = folderService;
         this.fileRepository = fileRepository;
+        this.fileService = fileService;
     }
 
     @PostMapping("/{id}")
@@ -97,6 +99,12 @@ public class FileController {
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public String deleteFileById(@PathVariable Long id){
+        return fileService.deleteFile(id);
     }
 
 }

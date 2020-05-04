@@ -1,7 +1,9 @@
 package com.gestion.proyectos.service.impl;
 
+import com.gestion.proyectos.repository.FileRepository;
 import com.gestion.proyectos.service.IFileService;
 import org.mapstruct.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -14,6 +16,12 @@ import java.util.UUID;
 
 @Service
 public class FileServiceImpl implements IFileService {
+
+    FileRepository fileDao;
+
+    @Autowired
+    public FileServiceImpl(FileRepository fileDao){ this.fileDao = fileDao; }
+
     @Override
     public boolean uploadFile(InputStream in, Path path, CopyOption copyOption) {
         try {
@@ -28,5 +36,11 @@ public class FileServiceImpl implements IFileService {
     @Override
     public String createFileName() {
         return UUID.randomUUID().toString();
+    }
+
+    @Override
+    public String deleteFile(Long id) {
+        fileDao.deleteById(id);
+        return "S";
     }
 }
