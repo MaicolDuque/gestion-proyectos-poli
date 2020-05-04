@@ -62,7 +62,7 @@ public class FileController {
         io.vavr.collection.List<File> allFiles = fileOption.map(
                 f -> listVavr.map(
                         f2 -> {
-                            if (f2.getNombre().equals(f)) {
+                            if (f2.getNombre().equals(f.getNombre())) {
                                 return f;
                             } else {
                                 return f2;
