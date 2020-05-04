@@ -2,6 +2,7 @@ package com.gestion.proyectos.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,10 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
 
 @Entity
+@Data
 @Table(name="files")
-public class File implements Serializable{
+public class File implements Serializable {
 	
     private static final long serialVersionUID = 1L;
 	
@@ -25,54 +28,24 @@ public class File implements Serializable{
 	
 	
 	private String nombre;
-	
+	private String filePath;
 	private Date fecha;
-	
-	
+
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)    
     private Folder folder; 
-	
-	
+
 	public File() {
 		super();
 	}
 
 	
-	public File(Long id, String nombre, int idFolder, Date fecha) {
+	public File(String nombre, String filePath,Folder folder) {
 		super();
-		this.id = id;
-		this.nombre = nombre;		
-		this.fecha = fecha;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
+		this.filePath = filePath;
 		this.nombre = nombre;
+		this.folder = folder;
+		this.fecha = new Date(Calendar.getInstance().getTime().getTime());
 	}
 
-
-	public Date getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
-	}
-	
-	
-	
-	
-	
 }
