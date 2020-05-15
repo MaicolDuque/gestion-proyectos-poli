@@ -1,5 +1,6 @@
 package com.gestion.proyectos.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.gestion.proyectos.acl.exception.MyFileNotFoundException;
 import com.gestion.proyectos.acl.http.UploadFileResponse;
 import com.gestion.proyectos.model.File;
@@ -8,7 +9,9 @@ import com.gestion.proyectos.repository.FileRepository;
 import com.gestion.proyectos.service.IFileService;
 import com.gestion.proyectos.service.IFolderService;
 import com.gestion.proyectos.service.impl.FileStorageService;
+import com.google.gson.JsonObject;
 import io.vavr.control.Option;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
@@ -103,7 +106,7 @@ public class FileController {
 
 
     @DeleteMapping("/{id}")
-    public String deleteFileById(@PathVariable Long id){
+    public JsonNode deleteFileById(@PathVariable Long id){
         return fileService.deleteFile(id);
     }
 

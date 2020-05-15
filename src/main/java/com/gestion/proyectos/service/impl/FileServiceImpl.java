@@ -1,8 +1,13 @@
 package com.gestion.proyectos.service.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gestion.proyectos.model.File;
 import com.gestion.proyectos.repository.FileRepository;
 import com.gestion.proyectos.service.IFileService;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import org.json.JSONObject;
 import org.mapstruct.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,14 +51,26 @@ public class FileServiceImpl implements IFileService {
 
 
     @Override
-    public String deleteFile(Long id) {
+    public JsonNode deleteFile(Long id) {
+        JsonNode correct = null;
+        JsonNode incorrect = null;
+        try {
+            String json = "{\"respuesta\":\"S\" }";
+            String json2 = "{\"respuesta\":\"N\" }";
+            ObjectMapper mapper = new ObjectMapper();
+            correct = mapper.readTree(json);
+            incorrect = mapper.readTree(json2);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
         if(getFileById(id).isPresent()){
             File file = getFileById(id).get();
             fileStorageService.deleteFile(file.getNombre());
             fileDao.deleteById(id);
-            return "S";
+            return correct;
         }
-        return "No existe archivo con el id: "+id;
+        return incorrect;
     }
 
     @Override
