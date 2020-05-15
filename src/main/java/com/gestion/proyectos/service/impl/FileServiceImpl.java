@@ -1,5 +1,6 @@
 package com.gestion.proyectos.service.impl;
 
+import com.gestion.proyectos.model.File;
 import com.gestion.proyectos.repository.FileRepository;
 import com.gestion.proyectos.service.IFileService;
 import org.mapstruct.ObjectFactory;
@@ -12,15 +13,20 @@ import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class FileServiceImpl implements IFileService {
 
     FileRepository fileDao;
+    private final FileStorageService fileStorageService;
 
     @Autowired
-    public FileServiceImpl(FileRepository fileDao){ this.fileDao = fileDao; }
+    public FileServiceImpl(FileRepository fileDao, FileStorageService fileStorageService){
+        this.fileDao = fileDao;
+        this.fileStorageService = fileStorageService;
+    }
 
     @Override
     public boolean uploadFile(InputStream in, Path path, CopyOption copyOption) {
@@ -38,9 +44,20 @@ public class FileServiceImpl implements IFileService {
         return UUID.randomUUID().toString();
     }
 
+
     @Override
     public String deleteFile(Long id) {
-        fileDao.deleteById(id);
-        return "S";
+        if(getFileById(id).isPresent()){
+            File file = getFileById(id).get();
+            fileStorageService.deleteFile(file.getNombre());
+            fileDao.deleteById(id);
+            return "S";
+        }
+        return "No existe archivo con el id: "+id;
+    }
+
+    @Override
+    public Optional<File> getFileById(Long id) {
+        return fileDao.findById(id);
     }
 }

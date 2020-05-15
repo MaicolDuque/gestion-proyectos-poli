@@ -73,4 +73,15 @@ public class FileStorageService {
             throw new MyFileNotFoundException("File not found " + fileName, ex);
         }
     }
+
+    public String deleteFile(String fileName) {
+        try {
+            // Copy file to the target location (Replacing existing file with the same name)
+            Path targetLocation = this.fileStorageLocation.resolve(fileName);
+            Files.delete(targetLocation);
+            return fileName;
+        } catch (IOException ex) {
+            throw new FileStorageException("Could not delete file " + fileName + ". Please try again!", ex);
+        }
+    }
 }
