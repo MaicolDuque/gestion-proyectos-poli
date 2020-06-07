@@ -66,8 +66,8 @@ public class FileServiceImpl implements IFileService {
 
         if(getFileById(id).isPresent()){
             File file = getFileById(id).get();
-            fileStorageService.deleteFile(file.getNombre());
             fileDao.deleteById(id);
+            fileStorageService.deleteFile(file.getNombre());
             return correct;
         }
         return incorrect;
